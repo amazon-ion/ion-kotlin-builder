@@ -1,0 +1,49 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.3.21"
+
+    // benchmark
+    id "me.champeau.gradle.jmh" version "0.4.8"
+}
+
+version "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "software.amazon.ion:ion-java:[1.3.1,)" // always want to use the latest ion-java
+    implementation "org.jetbrains.kotlin:kotlin-stdlib" // version from plugin
+
+    // test dependencies
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.3.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jmh {
+    fork = 1
+    benchmarkMode = ["thrpt"]
+    failOnError = true
+
+    // warmup
+    warmupIterations = 5
+    warmup = '5s'
+
+    // iterations
+    iterations = 10
+    timeOnIteration = '5s'
+}
+
+// builds the JMH code as part of the regular build to avoid to make sure it doesn't fall behind
+build.finalizedBy(jmhClasses)
