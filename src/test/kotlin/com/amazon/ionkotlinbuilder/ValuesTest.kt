@@ -1,6 +1,5 @@
 package com.amazon.ionkotlinbuilder
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import software.amazon.ion.IonType
@@ -9,244 +8,240 @@ import java.io.ByteArrayOutputStream
 import java.math.BigDecimal
 import java.math.BigInteger
 
-
 class ValuesTest {
 
     @Test
-    fun writeNull() = assertIon(
+    fun nullValue() = assertIon(
         expected = "null",
-        builder = { writeNull() })
+        builder = { nullValue() })
 
     @Test
-    fun writeNullWithAnnotations() = assertIon(
+    fun nullWithAnnotations() = assertIon(
         expected = "a::b::null",
-        builder = { writeNull(annotations = annotations) })
+        builder = { nullValue(annotations = annotations) })
 
     @Test
-    fun writeTypedNull() = assertIon(
+    fun typedNull() = assertIon(
         expected = "null.int",
-        builder = { writeNull(IonType.INT) })
+        builder = { nullValue(IonType.INT) })
 
     @Test
-    fun writeBool() = assertIon(
+    fun bool() = assertIon(
         expected = "true",
-        builder = { writeBool(true) })
+        builder = { bool(true) })
 
     @Test
-    fun writeBoolWithAnnotation() = assertIon(
+    fun boolWithAnnotation() = assertIon(
         expected = "a::b::true",
-        builder = { writeBool(true, annotations) })
+        builder = { bool(true, annotations) })
 
     @Test
-    fun writeInt() = assertIon(
+    fun int() = assertIon(
         expected = "1",
-        builder = { writeInt(1) })
+        builder = { int(1) })
 
     @Test
-    fun writeIntWithAnnotation() = assertIon(
+    fun intWithAnnotation() = assertIon(
         expected = "a::b::1",
-        builder = { writeInt(1, annotations) })
+        builder = { int(1, annotations) })
 
     @Test
-    fun writeBigInt() = assertIon(
+    fun bigInt() = assertIon(
         expected = "10",
-        builder = { writeInt(BigInteger.TEN) })
+        builder = { int(BigInteger.TEN) })
 
     @Test
-    fun writeBigIntWithAnnotation() = assertIon(
+    fun bigIntWithAnnotation() = assertIon(
         expected = "a::b::10",
-        builder = { writeInt(BigInteger.TEN, annotations) })
+        builder = { int(BigInteger.TEN, annotations) })
 
     @Test
-    fun writeFloat() = assertIon(
+    fun float() = assertIon(
         expected = "1e0",
-        builder = { writeFloat(1.0) })
+        builder = { float(1.0) })
 
     @Test
-    fun writeFloatWithAnnotation() = assertIon(
+    fun floatWithAnnotation() = assertIon(
         expected = "a::b::1e0",
-        builder = { writeFloat(1.0, annotations) })
+        builder = { float(1.0, annotations) })
 
     @Test
-    fun writeDecimal() = assertIon(
+    fun decimal() = assertIon(
         expected = "1.",
-        builder = { writeDecimal(BigDecimal.ONE) })
+        builder = { decimal(BigDecimal.ONE) })
 
     @Test
-    fun writeDecimalWithAnnotation() = assertIon(
+    fun decimalWithAnnotation() = assertIon(
         expected = "a::b::1.",
-        builder = { writeDecimal(BigDecimal.ONE, annotations) })
+        builder = { decimal(BigDecimal.ONE, annotations) })
 
     @Test
-    fun writeString() = assertIon(
+    fun string() = assertIon(
         expected = "\"text\"",
-        builder = { writeString("text") })
+        builder = { string("text") })
 
     @Test
-    fun writeStringWithAnnotation() = assertIon(
+    fun stringWithAnnotation() = assertIon(
         expected = "a::b::\"text\"",
-        builder = { writeString("text", annotations) })
+        builder = { string("text", annotations) })
 
     @Test
-    fun writeTimestamp() = assertIon(
+    fun timestamp() = assertIon(
         expected = "2019T",
-        builder = { writeTimestamp(Timestamp.valueOf("2019T")) })
+        builder = { timestamp(Timestamp.valueOf("2019T")) })
 
     @Test
-    fun writeTimestampWithAnnotation() = assertIon(
+    fun timestampWithAnnotation() = assertIon(
         expected = "a::b::2019T",
-        builder = { writeTimestamp(Timestamp.valueOf("2019T"), annotations) })
+        builder = { timestamp(Timestamp.valueOf("2019T"), annotations) })
 
     @Test
-    fun writeBlob() = assertIon(
+    fun blob() = assertIon(
         expected = "{{dGV4dA==}}",
-        builder = { writeBlob("text".toByteArray()) })
+        builder = { blob("text".toByteArray()) })
 
     @Test
-    fun writeBlobWithAnnotation() = assertIon(
+    fun blobWithAnnotation() = assertIon(
         expected = "a::b::{{dGV4dA==}}",
-        builder = { writeBlob("text".toByteArray(), annotations) })
+        builder = { blob("text".toByteArray(), annotations) })
 
     @Test
-    fun writeBlobWithLen() = assertIon(
+    fun blobWithLen() = assertIon(
         expected = "{{dA==}}",
-        builder = { writeBlob("text".toByteArray(), 0, 1) })
+        builder = { blob("text".toByteArray(), 0, 1) })
 
     @Test
-    fun writeBlobWithLenAndAnnotation() = assertIon(
+    fun blobWithLenAndAnnotation() = assertIon(
         expected = "a::b::{{dA==}}",
-        builder = { writeBlob("text".toByteArray(), 0, 1, annotations) })
+        builder = { blob("text".toByteArray(), 0, 1, annotations) })
 
     @Test
-    fun writeClob() = assertIon(
+    fun clob() = assertIon(
         expected = "{{ \"text\" }}",
-        builder = { writeClob("text".toByteArray()) })
+        builder = { clob("text".toByteArray()) })
 
     @Test
-    fun writeClobWithAnnotation() = assertIon(
+    fun clobWithAnnotation() = assertIon(
         expected = "a::b::{{ \"text\" }}",
-        builder = { writeClob("text".toByteArray(), annotations) })
+        builder = { clob("text".toByteArray(), annotations) })
 
     @Test
-    fun writeClobWithLen() = assertIon(
+    fun clobWithLen() = assertIon(
         expected = "{{ \"t\" }}",
-        builder = { writeClob("text".toByteArray(), 0, 1) })
+        builder = { clob("text".toByteArray(), 0, 1) })
 
     @Test
-    fun writeClobWithLenAndAnnotation() = assertIon(
+    fun clobWithLenAndAnnotation() = assertIon(
         expected = "a::b::{{ \"t\" }}",
-        builder = { writeClob("text".toByteArray(), 0, 1, annotations) })
+        builder = { clob("text".toByteArray(), 0, 1, annotations) })
 
     @Test
-    fun writeSymbol() = assertIon(
+    fun symbol() = assertIon(
         expected = "symbol",
-        builder = { writeSymbol("symbol") })
+        builder = { symbol("symbol") })
 
     @Test
-    fun writeSymbolWithAnnotation() = assertIon(
+    fun symbolWithAnnotation() = assertIon(
         expected = "a::b::symbol",
-        builder = { writeSymbol("symbol", annotations) })
+        builder = { symbol("symbol", annotations) })
 
     @Test
-    fun writeSymbolToken() = assertIon(
+    fun symbolToken() = assertIon(
         expected = "symbol",
-        builder = { writeSymbolToken(symbolToken) })
+        builder = { symbolToken(symbolToken) })
 
     @Test
-    fun writeSymbolTokenWithAnnotation() = assertIon(
+    fun symbolTokenWithAnnotation() = assertIon(
         expected = "a::b::symbol",
         builder = {
-            writeSymbolToken(
-                symbolToken,
-                annotations
-            )
+            symbolToken(symbolToken, annotations)
         })
 
     @Test
-    fun writeDomValue() = assertIon(
+    fun domValue() = assertIon(
         expected = "symbol",
-        builder = { writeValue(domSymbol) })
+        builder = { value(domSymbol) })
 
     @Test
-    fun writeReaderValue() = assertIon(
+    fun readerValue() = assertIon(
         expected = "symbol",
-        builder = { writeValue(readerValue("symbol")) })
+        builder = { value(readerValue("symbol")) })
 
     @Test
-    fun writeReaderValues() = assertIon(
+    fun readerValues() = assertIon(
         expected = "multiple values here",
-        builder = { writeValues(reader("multiple values here")) })
+        builder = { values(reader("multiple values here")) })
 
     @Test
-    fun writeList() = assertIon(
+    fun list() = assertIon(
         expected = "[]",
-        builder = { writeList {} })
+        builder = { list {} })
 
     @Test
-    fun writeListWithAnnotation() = assertIon(
+    fun listWithAnnotation() = assertIon(
         expected = "a::b::[]",
-        builder = { writeList(annotations) {} })
+        builder = { list(annotations) {} })
 
     @Test
-    fun writeNonEmptyList() = assertIon(
+    fun nonEmptyList() = assertIon(
         expected = "[1]",
-        builder = { writeList { writeInt(1) } })
+        builder = { list { int(1) } })
 
     @Test
-    fun writeListWithReadValues() = assertIon(
+    fun listWithReadValues() = assertIon(
         expected = "[1, 2, 3, 4, 5, 6]",
         builder = {
-            writeList { writeValues(reader("1 2 3 4 5 6")) }
+            list { values(reader("1 2 3 4 5 6")) }
         })
 
     @Test
-    fun writeNonEmptyListWithAnnotation() = assertIon(
+    fun nonEmptyListWithAnnotation() = assertIon(
         expected = "a::b::[1]",
-        builder = { writeList(annotations) { writeInt(1) } })
+        builder = { list(annotations) { int(1) } })
 
     @Test
-    fun writeSexp() = assertIon(
+    fun sexp() = assertIon(
         expected = "()",
-        builder = { writeSexp {} })
+        builder = { sexp {} })
 
     @Test
-    fun writeSexpWithAnnotation() = assertIon(
+    fun sexpWithAnnotation() = assertIon(
         expected = "a::b::()",
-        builder = { writeSexp(annotations) {} })
+        builder = { sexp(annotations) {} })
 
     @Test
-    fun writeSexpWithReadValues() = assertIon(
+    fun sexpWithReadValues() = assertIon(
         expected = "(1 2 3 4 5 6)",
         builder = {
-            writeSexp { writeValues(reader("1 2 3 4 5 6")) }
+            sexp { values(reader("1 2 3 4 5 6")) }
         })
 
     @Test
-    fun writeNonEmptySexp() = assertIon(
+    fun nonEmptySexp() = assertIon(
         expected = "(1)",
-        builder = { writeSexp { writeInt(1) } })
+        builder = { sexp { int(1) } })
 
     @Test
-    fun writeNonEmptySexpWithAnnotation() = assertIon(
+    fun nonEmptySexpWithAnnotation() = assertIon(
         expected = "a::b::(1)",
-        builder = { writeSexp(annotations) { writeInt(1) } })
+        builder = { sexp(annotations) { int(1) } })
 
     @Test
-    fun writeStruct() = assertIon(
+    fun struct() = assertIon(
         expected = "{}",
-        builder = { writeStruct {} })
+        builder = { struct {} })
 
     @Test
-    fun writeStructWithAnnotation() = assertIon(
+    fun structWithAnnotation() = assertIon(
         expected = "a::b::{}",
-        builder = { writeStruct(annotations) {} })
+        builder = { struct(annotations) {} })
 
     @Test
     internal fun extensionFunction() {
         val out = ByteArrayOutputStream()
         writerBuilder.build(out).use { w ->
             w.dsl {
-                writeInt(10)
+                int(10)
             }
         }
 

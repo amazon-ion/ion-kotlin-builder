@@ -28,18 +28,16 @@ IonTextWriterBuilder.standard().build(outBuilder).use { writer ->
     // writeIonWith() is the entry point for the builder.
     // Also available as an extension function: IonWriter.dsl()
     writeIonWith(writer) {
-        writeInt(1)
-        writeString("text")
-        writeSymbol("a_symbol")
-        writeList {
-            writeDecimal(BigDecimal.ONE)
-            writeStruct {
-                writeString(fieldName = "foo", value = "bar")
-                writeTimestamp(
-                    fieldName = "t",
-                    value = Timestamp.valueOf("2019T"),
-                    annotations = listOf("a", "b")
-                )
+        int(1)
+        string("text")
+        symbol("a_symbol")
+        list {
+            decimal(BigDecimal.ONE)
+            struct {
+                string(field = "foo", value = "bar")
+                timestamp(field = "t",
+                          value = Timestamp.valueOf("2019T"),
+                          annotations = listOf("a", "b"))
             }
         }
     }

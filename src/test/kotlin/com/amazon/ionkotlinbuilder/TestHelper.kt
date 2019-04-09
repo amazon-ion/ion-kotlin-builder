@@ -1,6 +1,5 @@
 package com.amazon.ionkotlinbuilder
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import software.amazon.ion.IonSymbol
 import software.amazon.ion.IonValue
@@ -22,10 +21,11 @@ internal fun reader(text: String) = readerBuilder.build(text)
 internal fun readerValue(text: String) = reader(text).also { it.next() }
 
 
-
-internal fun assertIon(expected: String,
-                       expectedIonJava: () -> IonValue? = { null },
-                       builder: IonWriterDsl.() -> Unit) {
+internal fun assertIon(
+    expected: String,
+    expectedIonJava: () -> IonValue? = { null },
+    builder: IonWriterDsl.() -> Unit
+) {
 
     val out = ByteArrayOutputStream()
     writerBuilder.build(out).use { writer ->

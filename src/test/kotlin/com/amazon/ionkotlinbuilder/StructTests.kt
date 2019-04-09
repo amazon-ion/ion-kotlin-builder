@@ -12,452 +12,475 @@ private val fieldToken = (ion.singleValue("field") as IonSymbol).symbolValue()
 class StructTests {
 
     private fun assertInStructIon(expected: String, builder: IonStructWriterDsl.() -> Unit) =
-        assertIon(expected) { writeStruct(dslFunction = builder) }
+        assertIon(expected) { struct(dslFunction = builder) }
 
     @Test
-    fun writeNull() = assertInStructIon(
+    fun nullValue() = assertInStructIon(
         expected = "{ field: null }",
-        builder = { writeNull("field") })
+        builder = { nullValue("field") })
 
     @Test
-    fun writeNullWithAnnotations() = assertInStructIon(
+    fun nullWithAnnotations() = assertInStructIon(
         expected = "{ field: a::b::null }",
-        builder = { writeNull("field", annotations = annotations) })
+        builder = { nullValue("field", annotations = annotations) })
 
     @Test
-    fun writeTypedNull() = assertInStructIon(
+    fun typedNull() = assertInStructIon(
         expected = "{ field: null.int }",
-        builder = { writeNull("field", IonType.INT) })
+        builder = { nullValue("field", IonType.INT) })
 
     @Test
-    fun writeBool() = assertInStructIon(
+    fun bool() = assertInStructIon(
         expected = "{ field: true }",
-        builder = { writeBool("field", true) })
+        builder = { bool("field", true) })
 
     @Test
-    fun writeBoolWithAnnotation() = assertInStructIon(
+    fun boolWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::true }",
-        builder = { writeBool("field", true, annotations) })
+        builder = { bool("field", true, annotations) })
 
     @Test
-    fun writeInt() = assertInStructIon(
+    fun int() = assertInStructIon(
         expected = "{ field: 1 }",
-        builder = { writeInt("field", 1) })
+        builder = { int("field", 1) })
 
     @Test
-    fun writeIntWithAnnotation() = assertInStructIon(
+    fun intWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::1 }",
-        builder = { writeInt("field", 1, annotations) })
+        builder = { int("field", 1, annotations) })
 
     @Test
-    fun writeBigInt() = assertInStructIon(
+    fun bigInt() = assertInStructIon(
         expected = "{ field: 10 }",
-        builder = { writeInt("field", BigInteger.TEN) })
+        builder = { int("field", BigInteger.TEN) })
 
     @Test
-    fun writeBigIntWithAnnotation() = assertInStructIon(
+    fun bigIntWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::10 }",
-        builder = { writeInt("field", BigInteger.TEN, annotations) })
+        builder = { int("field", BigInteger.TEN, annotations) })
 
     @Test
-    fun writeFloat() = assertInStructIon(
+    fun float() = assertInStructIon(
         expected = "{ field: 1e0 }",
-        builder = { writeFloat("field", 1.0) })
+        builder = { float("field", 1.0) })
 
     @Test
-    fun writeFloatWithAnnotation() = assertInStructIon(
+    fun floatWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::1e0 }",
-        builder = { writeFloat("field", 1.0, annotations) })
+        builder = { float("field", 1.0, annotations) })
 
     @Test
-    fun writeDecimal() = assertInStructIon(
+    fun decimal() = assertInStructIon(
         expected = "{ field: 1. }",
-        builder = { writeDecimal("field", BigDecimal.ONE) })
+        builder = { decimal("field", BigDecimal.ONE) })
 
     @Test
-    fun writeDecimalWithAnnotation() = assertInStructIon(
+    fun decimalWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::1. }",
-        builder = { writeDecimal("field", BigDecimal.ONE, annotations) })
+        builder = { decimal("field", BigDecimal.ONE, annotations) })
 
     @Test
-    fun writeString() = assertInStructIon(
+    fun string() = assertInStructIon(
         expected = "{ field: \"text\" }",
-        builder = { writeString("field", "text") })
+        builder = { string("field", "text") })
 
     @Test
-    fun writeStringWithAnnotation() = assertInStructIon(
+    fun stringWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::\"text\" }",
-        builder = { writeString("field", "text", annotations) })
+        builder = { string("field", "text", annotations) })
 
     @Test
-    fun writeTimestamp() = assertInStructIon(
+    fun timestamp() = assertInStructIon(
         expected = "{ field: 2019T }",
-        builder = { writeTimestamp("field", Timestamp.valueOf("2019T")) })
+        builder = { timestamp("field", Timestamp.valueOf("2019T")) })
 
     @Test
-    fun writeTimestampWithAnnotation() = assertInStructIon(
+    fun timestampWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::2019T }",
-        builder = { writeTimestamp("field", Timestamp.valueOf("2019T"), annotations) })
+        builder = { timestamp("field", Timestamp.valueOf("2019T"), annotations) })
 
     @Test
-    fun writeBlob() = assertInStructIon(
+    fun blob() = assertInStructIon(
         expected = "{ field: {{dGV4dA==}} }",
-        builder = { writeBlob("field", "text".toByteArray()) })
+        builder = { blob("field", "text".toByteArray()) })
 
     @Test
-    fun writeBlobWithAnnotation() = assertInStructIon(
+    fun blobWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::{{dGV4dA==}} }",
-        builder = { writeBlob("field", "text".toByteArray(), annotations) })
+        builder = { blob("field", "text".toByteArray(), annotations) })
 
     @Test
-    fun writeBlobWithLen() = assertInStructIon(
+    fun blobWithLen() = assertInStructIon(
         expected = "{ field: {{dA==}} }",
-        builder = { writeBlob("field", "text".toByteArray(), 0, 1) })
+        builder = { blob("field", "text".toByteArray(), 0, 1) })
 
     @Test
-    fun writeBlobWithLenAndAnnotation() = assertInStructIon(
+    fun blobWithLenAndAnnotation() = assertInStructIon(
         expected = "{ field: a::b::{{dA==}} }",
-        builder = { writeBlob("field", "text".toByteArray(), 0, 1, annotations) })
+        builder = { blob("field", "text".toByteArray(), 0, 1, annotations) })
 
     @Test
-    fun writeClob() = assertInStructIon(
+    fun clob() = assertInStructIon(
         expected = "{ field: {{ \"text\" }} }",
-        builder = { writeClob("field", "text".toByteArray()) })
+        builder = { clob("field", "text".toByteArray()) })
 
     @Test
-    fun writeClobWithAnnotation() = assertInStructIon(
+    fun clobWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::{{ \"text\" }} }",
-        builder = { writeClob("field", "text".toByteArray(), annotations) })
+        builder = { clob("field", "text".toByteArray(), annotations) })
 
     @Test
-    fun writeClobWithLen() = assertInStructIon(
+    fun clobWithLen() = assertInStructIon(
         expected = "{ field: {{ \"t\" }} }",
-        builder = { writeClob("field", "text".toByteArray(), 0, 1) })
+        builder = { clob("field", "text".toByteArray(), 0, 1) })
 
     @Test
-    fun writeClobWithLenAndAnnotation() = assertInStructIon(
+    fun clobWithLenAndAnnotation() = assertInStructIon(
         expected = "{ field: a::b::{{ \"t\" }} }",
-        builder = { writeClob("field", "text".toByteArray(), 0, 1, annotations) })
+        builder = { clob("field", "text".toByteArray(), 0, 1, annotations) })
 
     @Test
-    fun writeSymbol() = assertInStructIon(
+    fun symbol() = assertInStructIon(
         expected = "{ field: symbol }",
-        builder = { writeSymbol("field", "symbol") })
+        builder = { symbol("field", "symbol") })
 
     @Test
-    fun writeSymbolWithAnnotation() = assertInStructIon(
+    fun symbolWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::symbol }",
-        builder = { writeSymbol("field", "symbol", annotations) })
+        builder = { symbol("field", "symbol", annotations) })
 
     @Test
-    fun writeSymbolToken() = assertInStructIon(
+    fun symbolToken() = assertInStructIon(
         expected = "{ field: symbol }",
-        builder = { writeSymbolToken("field", symbolToken) })
+        builder = { symbolToken("field", symbolToken) })
 
     @Test
-    fun writeSymbolTokenWithAnnotation() = assertInStructIon(
+    fun symbolTokenWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::symbol }",
-        builder = { writeSymbolToken("field",
-            symbolToken,
-            annotations
-        ) })
+        builder = {
+            symbolToken(
+                "field",
+                symbolToken,
+                annotations
+            )
+        })
 
     @Test
-    fun writeDomValue() = assertInStructIon(
+    fun domValue() = assertInStructIon(
         expected = "{ field: symbol }",
-        builder = { writeValue("field", domSymbol) })
+        builder = { value("field", domSymbol) })
 
     @Test
-    fun writeReaderValue() = assertInStructIon(
+    fun readerValue() = assertInStructIon(
         expected = "{ field: symbol }",
-        builder = { writeValue("field", readerValue("symbol")) })
+        builder = { value("field", readerValue("symbol")) })
 
     @Test
-    fun writeList() = assertInStructIon(
+    fun list() = assertInStructIon(
         expected = "{ field: [] }",
-        builder = { writeList("field") {} })
+        builder = { list("field") {} })
 
     @Test
-    fun writeListWithAnnotation() = assertInStructIon(
+    fun listWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::[] }",
-        builder = { writeList("field", annotations) {} })
+        builder = { list("field", annotations) {} })
 
     @Test
-    fun writeNonEmptyList() = assertInStructIon(
+    fun nonEmptyList() = assertInStructIon(
         expected = "{ field: [1] }",
-        builder = { writeList("field") { writeInt(1) } })
+        builder = { list("field") { int(1) } })
 
     @Test
-    fun writeNonEmptyListWithAnnotation() = assertInStructIon(
+    fun nonEmptyListWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::[1] }",
-        builder = { writeList("field", annotations) { writeInt(1) } })
+        builder = { list("field", annotations) { int(1) } })
 
     @Test
-    fun writeSexp() = assertInStructIon(
+    fun sexp() = assertInStructIon(
         expected = "{ field: () }",
-        builder = { writeSexp("field") {} })
+        builder = { sexp("field") {} })
 
     @Test
-    fun writeSexpWithAnnotation() = assertInStructIon(
+    fun sexpWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::() }",
-        builder = { writeSexp("field", annotations) {} })
+        builder = { sexp("field", annotations) {} })
 
     @Test
-    fun writeNonEmptySexp() = assertInStructIon(
+    fun nonEmptySexp() = assertInStructIon(
         expected = "{ field: (1) }",
-        builder = { writeSexp("field") { writeInt(1) } })
+        builder = { sexp("field") { int(1) } })
 
     @Test
-    fun writeNonEmptySexpWithAnnotation() = assertInStructIon(
+    fun nonEmptySexpWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::(1) }",
-        builder = { writeSexp("field", annotations) { writeInt(1) } })
+        builder = { sexp("field", annotations) { int(1) } })
 
     @Test
-    fun writeStruct() = assertInStructIon(
+    fun struct() = assertInStructIon(
         expected = "{ field: {} }",
-        builder = { writeStruct("field") {} })
+        builder = { struct("field") {} })
 
     @Test
-    fun writeStructWithAnnotation() = assertInStructIon(
+    fun structWithAnnotation() = assertInStructIon(
         expected = "{ field: a::b::{} }",
-        builder = { writeStruct("field", annotations) {} })
+        builder = { struct("field", annotations) {} })
 
     // symbol token
 
     @Test
-    fun writeNullSymbolToken() = assertInStructIon(
+    fun nullSymbolToken() = assertInStructIon(
         expected = "{ field: null }",
-        builder = { writeNull(fieldToken) })
+        builder = { nullValue(fieldToken) })
 
     @Test
-    fun writeNullWithAnnotationsSymbolToken() = assertInStructIon(
+    fun nullWithAnnotationsSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::null }",
-        builder = { writeNull(fieldToken, annotations = annotations) })
+        builder = { nullValue(fieldToken, annotations = annotations) })
 
     @Test
-    fun writeTypedNullSymbolToken() = assertInStructIon(
+    fun typedNullSymbolToken() = assertInStructIon(
         expected = "{ field: null.int }",
-        builder = { writeNull(fieldToken, IonType.INT) })
+        builder = { nullValue(fieldToken, IonType.INT) })
 
     @Test
-    fun writeBoolSymbolToken() = assertInStructIon(
+    fun boolSymbolToken() = assertInStructIon(
         expected = "{ field: true }",
-        builder = { writeBool(fieldToken, true) })
+        builder = { bool(fieldToken, true) })
 
     @Test
-    fun writeBoolWithAnnotationSymbolToken() = assertInStructIon(
+    fun boolWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::true }",
-        builder = { writeBool(fieldToken, true, annotations) })
+        builder = { bool(fieldToken, true, annotations) })
 
     @Test
-    fun writeIntSymbolToken() = assertInStructIon(
+    fun intSymbolToken() = assertInStructIon(
         expected = "{ field: 1 }",
-        builder = { writeInt(fieldToken, 1) })
+        builder = { int(fieldToken, 1) })
 
     @Test
-    fun writeIntWithAnnotationSymbolToken() = assertInStructIon(
+    fun intWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::1 }",
-        builder = { writeInt(fieldToken, 1, annotations) })
+        builder = { int(fieldToken, 1, annotations) })
 
     @Test
-    fun writeBigIntSymbolToken() = assertInStructIon(
+    fun bigIntSymbolToken() = assertInStructIon(
         expected = "{ field: 10 }",
-        builder = { writeInt(fieldToken, BigInteger.TEN) })
+        builder = { int(fieldToken, BigInteger.TEN) })
 
     @Test
-    fun writeBigIntWithAnnotationSymbolToken() = assertInStructIon(
+    fun bigIntWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::10 }",
-        builder = { writeInt(
-            fieldToken, BigInteger.TEN,
-            annotations
-        ) })
+        builder = {
+            int(
+                fieldToken, BigInteger.TEN,
+                annotations
+            )
+        })
 
     @Test
-    fun writeFloatSymbolToken() = assertInStructIon(
+    fun floatSymbolToken() = assertInStructIon(
         expected = "{ field: 1e0 }",
-        builder = { writeFloat(fieldToken, 1.0) })
+        builder = { float(fieldToken, 1.0) })
 
     @Test
-    fun writeFloatWithAnnotationSymbolToken() = assertInStructIon(
+    fun floatWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::1e0 }",
-        builder = { writeFloat(fieldToken, 1.0, annotations) })
+        builder = { float(fieldToken, 1.0, annotations) })
 
     @Test
-    fun writeDecimalSymbolToken() = assertInStructIon(
+    fun decimalSymbolToken() = assertInStructIon(
         expected = "{ field: 1. }",
-        builder = { writeDecimal(fieldToken, BigDecimal.ONE) })
+        builder = { decimal(fieldToken, BigDecimal.ONE) })
 
     @Test
-    fun writeDecimalWithAnnotationSymbolToken() = assertInStructIon(
+    fun decimalWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::1. }",
-        builder = { writeDecimal(
-            fieldToken, BigDecimal.ONE,
-            annotations
-        ) })
+        builder = {
+            decimal(
+                fieldToken, BigDecimal.ONE,
+                annotations
+            )
+        })
 
     @Test
-    fun writeStringSymbolToken() = assertInStructIon(
+    fun stringSymbolToken() = assertInStructIon(
         expected = "{ field: \"text\" }",
-        builder = { writeString(fieldToken, "text") })
+        builder = { string(fieldToken, "text") })
 
     @Test
-    fun writeStringWithAnnotationSymbolToken() = assertInStructIon(
+    fun stringWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::\"text\" }",
-        builder = { writeString(fieldToken, "text", annotations) })
+        builder = { string(fieldToken, "text", annotations) })
 
     @Test
-    fun writeTimestampSymbolToken() = assertInStructIon(
+    fun timestampSymbolToken() = assertInStructIon(
         expected = "{ field: 2019T }",
-        builder = { writeTimestamp(fieldToken, Timestamp.valueOf("2019T")) })
+        builder = { timestamp(fieldToken, Timestamp.valueOf("2019T")) })
 
     @Test
-    fun writeTimestampWithAnnotationSymbolToken() = assertInStructIon(
+    fun timestampWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::2019T }",
-        builder = { writeTimestamp(
-            fieldToken, Timestamp.valueOf("2019T"),
-            annotations
-        ) })
+        builder = {
+            timestamp(
+                fieldToken, Timestamp.valueOf("2019T"),
+                annotations
+            )
+        })
 
     @Test
-    fun writeBlobSymbolToken() = assertInStructIon(
+    fun blobSymbolToken() = assertInStructIon(
         expected = "{ field: {{dGV4dA==}} }",
-        builder = { writeBlob(fieldToken, "text".toByteArray()) })
+        builder = { blob(fieldToken, "text".toByteArray()) })
 
     @Test
-    fun writeBlobWithAnnotationSymbolToken() = assertInStructIon(
+    fun blobWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::{{dGV4dA==}} }",
-        builder = { writeBlob(
-            fieldToken, "text".toByteArray(),
-            annotations
-        ) })
+        builder = {
+            blob(
+                fieldToken, "text".toByteArray(),
+                annotations
+            )
+        })
 
     @Test
-    fun writeBlobWithLenSymbolToken() = assertInStructIon(
+    fun blobWithLenSymbolToken() = assertInStructIon(
         expected = "{ field: {{dA==}} }",
-        builder = { writeBlob(fieldToken, "text".toByteArray(), 0, 1) })
+        builder = { blob(fieldToken, "text".toByteArray(), 0, 1) })
 
     @Test
-    fun writeBlobWithLenAndAnnotationSymbolToken() = assertInStructIon(
+    fun blobWithLenAndAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::{{dA==}} }",
-        builder = { writeBlob(
-            fieldToken, "text".toByteArray(), 0, 1,
-            annotations
-        ) })
+        builder = {
+            blob(
+                fieldToken, "text".toByteArray(), 0, 1,
+                annotations
+            )
+        })
 
     @Test
-    fun writeClobSymbolToken() = assertInStructIon(
+    fun clobSymbolToken() = assertInStructIon(
         expected = "{ field: {{ \"text\" }} }",
-        builder = { writeClob(fieldToken, "text".toByteArray()) })
+        builder = { clob(fieldToken, "text".toByteArray()) })
 
     @Test
-    fun writeClobWithAnnotationSymbolToken() = assertInStructIon(
+    fun clobWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::{{ \"text\" }} }",
-        builder = { writeClob(
-            fieldToken, "text".toByteArray(),
-            annotations
-        ) })
+        builder = {
+            clob(
+                fieldToken, "text".toByteArray(),
+                annotations
+            )
+        })
 
     @Test
-    fun writeClobWithLenSymbolToken() = assertInStructIon(
+    fun clobWithLenSymbolToken() = assertInStructIon(
         expected = "{ field: {{ \"t\" }} }",
-        builder = { writeClob(fieldToken, "text".toByteArray(), 0, 1) })
+        builder = { clob(fieldToken, "text".toByteArray(), 0, 1) })
 
     @Test
-    fun writeClobWithLenAndAnnotationSymbolToken() = assertInStructIon(
+    fun clobWithLenAndAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::{{ \"t\" }} }",
-        builder = { writeClob(
-            fieldToken, "text".toByteArray(), 0, 1,
-            annotations
-        ) })
+        builder = {
+            clob(
+                fieldToken, "text".toByteArray(), 0, 1,
+                annotations
+            )
+        })
 
     @Test
-    fun writeSymbolSymbolToken() = assertInStructIon(
+    fun symbolSymbolToken() = assertInStructIon(
         expected = "{ field: symbol }",
-        builder = { writeSymbol(fieldToken, "symbol") })
+        builder = { symbol(fieldToken, "symbol") })
 
     @Test
-    fun writeSymbolWithAnnotationSymbolToken() = assertInStructIon(
+    fun symbolWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::symbol }",
-        builder = { writeSymbol(
-            fieldToken, "symbol",
-            annotations
-        ) })
+        builder = {
+            symbol(
+                fieldToken, "symbol",
+                annotations
+            )
+        })
 
     @Test
-    fun writeSymbolTokenSymbolToken() = assertInStructIon(
+    fun symbolTokenSymbolToken() = assertInStructIon(
         expected = "{ field: symbol }",
-        builder = { writeSymbolToken(fieldToken, symbolToken) })
+        builder = { symbolToken(fieldToken, symbolToken) })
 
     @Test
-    fun writeSymbolTokenWithAnnotationSymbolToken() = assertInStructIon(
+    fun symbolTokenWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::symbol }",
-        builder = { writeSymbolToken(
-            fieldToken,
-            symbolToken,
-            annotations
-        ) })
+        builder = {
+            symbolToken(
+                fieldToken,
+                symbolToken,
+                annotations
+            )
+        })
 
     @Test
-    fun writeDomValueSymbolToken() = assertInStructIon(
+    fun domValueSymbolToken() = assertInStructIon(
         expected = "{ field: symbol }",
-        builder = { writeValue(fieldToken, domSymbol) })
+        builder = { value(fieldToken, domSymbol) })
 
     @Test
-    fun writeReaderValueSymbolToken() = assertInStructIon(
+    fun readerValueSymbolToken() = assertInStructIon(
         expected = "{ field: symbol }",
-        builder = { writeValue(
-            fieldToken,
-            readerValue("symbol")
-        ) })
+        builder = {
+            value(
+                fieldToken,
+                readerValue("symbol")
+            )
+        })
 
     @Test
-    fun writeListSymbolToken() = assertInStructIon(
+    fun listSymbolToken() = assertInStructIon(
         expected = "{ field: [] }",
-        builder = { writeList(fieldToken) {} })
+        builder = { list(fieldToken) {} })
 
     @Test
-    fun writeListWithAnnotationSymbolToken() = assertInStructIon(
+    fun listWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::[] }",
-        builder = { writeList(fieldToken, annotations) {} })
+        builder = { list(fieldToken, annotations) {} })
 
     @Test
-    fun writeNonEmptyListSymbolToken() = assertInStructIon(
+    fun nonEmptyListSymbolToken() = assertInStructIon(
         expected = "{ field: [1] }",
-        builder = { writeList(fieldToken) { writeInt(1) } })
+        builder = { list(fieldToken) { int(1) } })
 
     @Test
-    fun writeNonEmptyListWithAnnotationSymbolToken() = assertInStructIon(
+    fun nonEmptyListWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::[1] }",
-        builder = { writeList(fieldToken, annotations) { writeInt(1) } })
+        builder = { list(fieldToken, annotations) { int(1) } })
 
     @Test
-    fun writeSexpSymbolToken() = assertInStructIon(
+    fun sexpSymbolToken() = assertInStructIon(
         expected = "{ field: () }",
-        builder = { writeSexp(fieldToken) {} })
+        builder = { sexp(fieldToken) {} })
 
     @Test
-    fun writeSexpWithAnnotationSymbolToken() = assertInStructIon(
+    fun sexpWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::() }",
-        builder = { writeSexp(fieldToken, annotations) {} })
+        builder = { sexp(fieldToken, annotations) {} })
 
     @Test
-    fun writeNonEmptySexpSymbolToken() = assertInStructIon(
+    fun nonEmptySexpSymbolToken() = assertInStructIon(
         expected = "{ field: (1) }",
-        builder = { writeSexp(fieldToken) { writeInt(1) } })
+        builder = { sexp(fieldToken) { int(1) } })
 
     @Test
-    fun writeNonEmptySexpWithAnnotationSymbolToken() = assertInStructIon(
+    fun nonEmptySexpWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::(1) }",
-        builder = { writeSexp(fieldToken, annotations) { writeInt(1) } })
+        builder = { sexp(fieldToken, annotations) { int(1) } })
 
     @Test
-    fun writeStructSymbolToken() = assertInStructIon(
+    fun structSymbolToken() = assertInStructIon(
         expected = "{ field: {} }",
-        builder = { writeStruct(fieldToken) {} })
+        builder = { struct(fieldToken) {} })
 
     @Test
-    fun writeStructWithAnnotationSymbolToken() = assertInStructIon(
+    fun structWithAnnotationSymbolToken() = assertInStructIon(
         expected = "{ field: a::b::{} }",
-        builder = { writeStruct(fieldToken, annotations) {} })
+        builder = { struct(fieldToken, annotations) {} })
 }
 

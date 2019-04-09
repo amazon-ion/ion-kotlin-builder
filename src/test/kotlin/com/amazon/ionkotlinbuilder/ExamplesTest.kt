@@ -51,14 +51,14 @@ class ExamplesTest {
             dg
         },
         builder = {
-            writeInt(1)
-            writeString("text")
-            writeSymbol("a_symbol")
-            writeList {
-                writeDecimal(BigDecimal.ONE)
-                writeStruct {
-                    writeString(field = "foo", value = "bar")
-                    writeTimestamp(
+            int(1)
+            string("text")
+            symbol("a_symbol")
+            list {
+                decimal(BigDecimal.ONE)
+                struct {
+                    string(field = "foo", value = "bar")
+                    timestamp(
                         field = "t",
                         value = Timestamp.valueOf("2019T"),
                         annotations = listOf("a", "b")

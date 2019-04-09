@@ -22,7 +22,7 @@ interface IonStructWriterDsl {
      * @param annotations list of annotations to add in order.
      * @param dslFunction function to build the struct.
      */
-    fun writeStruct(field: String, annotations: List<String> = listOf(), dslFunction: IonStructWriterDsl.() -> Unit)
+    fun struct(field: String, annotations: List<String> = listOf(), dslFunction: IonStructWriterDsl.() -> Unit)
 
     /**
      * Starts a struct context.
@@ -31,7 +31,7 @@ interface IonStructWriterDsl {
      * @param annotations list of annotations to add in order.
      * @param dslFunction function to build the struct.
      */
-    fun writeStruct(field: SymbolToken, annotations: List<String> = listOf(), dslFunction: IonStructWriterDsl.() -> Unit)
+    fun struct(field: SymbolToken, annotations: List<String> = listOf(), dslFunction: IonStructWriterDsl.() -> Unit)
 
     /**
      * Starts a list context.
@@ -40,7 +40,7 @@ interface IonStructWriterDsl {
      * @param annotations list of annotations to add in order.
      * @param dslFunction function to build the list.
      */
-    fun writeList(field: String, annotations: List<String> = listOf(), dslFunction: IonWriterDsl.() -> Unit)
+    fun list(field: String, annotations: List<String> = listOf(), dslFunction: IonWriterDsl.() -> Unit)
 
     /**
      * Starts a list context.
@@ -49,7 +49,7 @@ interface IonStructWriterDsl {
      * @param annotations list of annotations to add in order.
      * @param dslFunction function to build the list.
      */
-    fun writeList(field: SymbolToken, annotations: List<String> = listOf(), dslFunction: IonWriterDsl.() -> Unit)
+    fun list(field: SymbolToken, annotations: List<String> = listOf(), dslFunction: IonWriterDsl.() -> Unit)
 
     /**
      * Starts a sexp context.
@@ -58,7 +58,7 @@ interface IonStructWriterDsl {
      * @param annotations list of annotations to add in order.
      * @param dslFunction function to build the sexp.
      */
-    fun writeSexp(field: String, annotations: List<String> = listOf(), dslFunction: IonWriterDsl.() -> Unit)
+    fun sexp(field: String, annotations: List<String> = listOf(), dslFunction: IonWriterDsl.() -> Unit)
 
     /**
      * Starts a sexp context.
@@ -67,7 +67,7 @@ interface IonStructWriterDsl {
      * @param annotations list of annotations to add in order.
      * @param dslFunction function to build the sexp.
      */
-    fun writeSexp(field: SymbolToken, annotations: List<String> = listOf(), dslFunction: IonWriterDsl.() -> Unit)
+    fun sexp(field: SymbolToken, annotations: List<String> = listOf(), dslFunction: IonWriterDsl.() -> Unit)
 
     /**
      * Writes a DOM value.
@@ -75,7 +75,7 @@ interface IonStructWriterDsl {
      * @param field struct value field
      * @param value value to write
      */
-    fun writeValue(field: String, value: IonValue)
+    fun value(field: String, value: IonValue)
 
     /**
      * Writes a DOM value.
@@ -83,7 +83,7 @@ interface IonStructWriterDsl {
      * @param field struct value field
      * @param value value to write
      */
-    fun writeValue(field: SymbolToken, value: IonValue)
+    fun value(field: SymbolToken, value: IonValue)
 
     /**
      * Writes a value from a reader.
@@ -93,7 +93,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeValue
      */
-    fun writeValue(field: String, reader: IonReader)
+    fun value(field: String, reader: IonReader)
 
     /**
      * Writes a value from a reader.
@@ -103,7 +103,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeValue
      */
-    fun writeValue(field: SymbolToken, reader: IonReader)
+    fun value(field: SymbolToken, reader: IonReader)
 
     // value by type
 
@@ -117,7 +117,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeNull
      */
-    fun writeNull(field: String, type: IonType? = null, annotations: List<String> = listOf())
+    fun nullValue(field: String, type: IonType? = null, annotations: List<String> = listOf())
 
     /**
      * Writes a null value.
@@ -128,7 +128,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeNull
      */
-    fun writeNull(field: SymbolToken, type: IonType? = null, annotations: List<String> = listOf())
+    fun nullValue(field: SymbolToken, type: IonType? = null, annotations: List<String> = listOf())
 
     /**
      * Writes a bool value.
@@ -139,7 +139,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeBool
      */
-    fun writeBool(field: String, value: Boolean, annotations: List<String> = listOf())
+    fun bool(field: String, value: Boolean, annotations: List<String> = listOf())
 
     /**
      * Writes a bool value.
@@ -150,7 +150,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeBool
      */
-    fun writeBool(field: SymbolToken, value: Boolean, annotations: List<String> = listOf())
+    fun bool(field: SymbolToken, value: Boolean, annotations: List<String> = listOf())
 
     /**
      * Writes an int value.
@@ -161,7 +161,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeInt
      */
-    fun writeInt(field: String, value: Long, annotations: List<String> = listOf())
+    fun int(field: String, value: Long, annotations: List<String> = listOf())
 
     /**
      * Writes an int value.
@@ -172,7 +172,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeInt
      */
-    fun writeInt(field: SymbolToken, value: Long, annotations: List<String> = listOf())
+    fun int(field: SymbolToken, value: Long, annotations: List<String> = listOf())
 
     /**
      * Writes an int value.
@@ -183,7 +183,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeInt
      */
-    fun writeInt(field: String, value: BigInteger, annotations: List<String> = listOf())
+    fun int(field: String, value: BigInteger, annotations: List<String> = listOf())
 
     /**
      * Writes an int value.
@@ -194,7 +194,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeInt
      */
-    fun writeInt(field: SymbolToken, value: BigInteger, annotations: List<String> = listOf())
+    fun int(field: SymbolToken, value: BigInteger, annotations: List<String> = listOf())
 
     /**
      * Writes a float value.
@@ -205,7 +205,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeFloat
      */
-    fun writeFloat(field: String, value: Double, annotations: List<String> = listOf())
+    fun float(field: String, value: Double, annotations: List<String> = listOf())
 
     /**
      * Writes a float value.
@@ -216,7 +216,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeFloat
      */
-    fun writeFloat(field: SymbolToken, value: Double, annotations: List<String> = listOf())
+    fun float(field: SymbolToken, value: Double, annotations: List<String> = listOf())
 
     /**
      * Writes a decimal value.
@@ -227,7 +227,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeDecimal
      */
-    fun writeDecimal(field: String, value: BigDecimal, annotations: List<String> = listOf())
+    fun decimal(field: String, value: BigDecimal, annotations: List<String> = listOf())
 
     /**
      * Writes a decimal value.
@@ -238,7 +238,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeDecimal
      */
-    fun writeDecimal(field: SymbolToken, value: BigDecimal, annotations: List<String> = listOf())
+    fun decimal(field: SymbolToken, value: BigDecimal, annotations: List<String> = listOf())
 
     /**
      * Writes a String value.
@@ -249,7 +249,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeString
      */
-    fun writeString(field: String, value: String, annotations: List<String> = listOf())
+    fun string(field: String, value: String, annotations: List<String> = listOf())
 
     /**
      * Writes a String value.
@@ -260,7 +260,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeString
      */
-    fun writeString(field: SymbolToken, value: String, annotations: List<String> = listOf())
+    fun string(field: SymbolToken, value: String, annotations: List<String> = listOf())
 
     /**
      * Writes a [Timestamp] int value.
@@ -271,7 +271,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeTimestamp
      */
-    fun writeTimestamp(field: String, value: Timestamp, annotations: List<String> = listOf())
+    fun timestamp(field: String, value: Timestamp, annotations: List<String> = listOf())
 
     /**
      * Writes a [Timestamp] int value.
@@ -282,7 +282,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeTimestamp
      */
-    fun writeTimestamp(field: SymbolToken, value: Timestamp, annotations: List<String> = listOf())
+    fun timestamp(field: SymbolToken, value: Timestamp, annotations: List<String> = listOf())
 
     /**
      * Writes a blob value.
@@ -293,7 +293,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeBlob
      */
-    fun writeBlob(field: String, value: ByteArray, annotations: List<String> = listOf())
+    fun blob(field: String, value: ByteArray, annotations: List<String> = listOf())
 
     /**
      * Writes a blob value.
@@ -304,20 +304,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeBlob
      */
-    fun writeBlob(field: SymbolToken, value: ByteArray, annotations: List<String> = listOf())
-
-    /**
-     * Writes a blob value.
-     *
-     * @param field struct value field.
-     * @param value value to write.
-     * @param start offset of the first byte in value to write.
-     * @param len number of bytes to write from value.
-     * @param annotations list of annotations to add in order.
-     *
-     * @see IonWriter.writeBlob
-     */
-    fun writeBlob(field: String, value: ByteArray, start: Int, len: Int, annotations: List<String> = listOf())
+    fun blob(field: SymbolToken, value: ByteArray, annotations: List<String> = listOf())
 
     /**
      * Writes a blob value.
@@ -330,7 +317,20 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeBlob
      */
-    fun writeBlob(field: SymbolToken, value: ByteArray, start: Int, len: Int, annotations: List<String> = listOf())
+    fun blob(field: String, value: ByteArray, start: Int, len: Int, annotations: List<String> = listOf())
+
+    /**
+     * Writes a blob value.
+     *
+     * @param field struct value field.
+     * @param value value to write.
+     * @param start offset of the first byte in value to write.
+     * @param len number of bytes to write from value.
+     * @param annotations list of annotations to add in order.
+     *
+     * @see IonWriter.writeBlob
+     */
+    fun blob(field: SymbolToken, value: ByteArray, start: Int, len: Int, annotations: List<String> = listOf())
 
     /**
      * Writes a clob value.
@@ -341,7 +341,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeClob
      */
-    fun writeClob(field: String, value: ByteArray, annotations: List<String> = listOf())
+    fun clob(field: String, value: ByteArray, annotations: List<String> = listOf())
 
     /**
      * Writes a clob value.
@@ -352,7 +352,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeClob
      */
-    fun writeClob(field: SymbolToken, value: ByteArray, annotations: List<String> = listOf())
+    fun clob(field: SymbolToken, value: ByteArray, annotations: List<String> = listOf())
 
     /**
      * Writes a clob value.
@@ -365,7 +365,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeClob
      */
-    fun writeClob(field: String, value: ByteArray, start: Int, len: Int, annotations: List<String> = listOf())
+    fun clob(field: String, value: ByteArray, start: Int, len: Int, annotations: List<String> = listOf())
 
     /**
      * Writes a clob value.
@@ -378,7 +378,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeClob
      */
-    fun writeClob(field: SymbolToken, value: ByteArray, start: Int, len: Int, annotations: List<String> = listOf())
+    fun clob(field: SymbolToken, value: ByteArray, start: Int, len: Int, annotations: List<String> = listOf())
 
     /**
      * Writes a symbol from its [SymbolToken].
@@ -389,7 +389,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeSymbolToken
      */
-    fun writeSymbolToken(field: String, value: SymbolToken, annotations: List<String> = listOf())
+    fun symbolToken(field: String, value: SymbolToken, annotations: List<String> = listOf())
 
     /**
      * Writes a symbol from its [SymbolToken].
@@ -400,7 +400,7 @@ interface IonStructWriterDsl {
      *
      * @see IonWriter.writeSymbolToken
      */
-    fun writeSymbolToken(field: SymbolToken, value: SymbolToken, annotations: List<String> = listOf())
+    fun symbolToken(field: SymbolToken, value: SymbolToken, annotations: List<String> = listOf())
 
     /**
      * Writes a symbol from its text.
@@ -411,7 +411,7 @@ interface IonStructWriterDsl {
      *
      * @see [IonWriter.writeSymbol]
      */
-    fun writeSymbol(field: String, value: String, annotations: List<String> = listOf())
+    fun symbol(field: String, value: String, annotations: List<String> = listOf())
 
     /**
      * Writes a symbol from its text.
@@ -422,5 +422,5 @@ interface IonStructWriterDsl {
      *
      * @see [IonWriter.writeSymbol]
      */
-    fun writeSymbol(field: SymbolToken, value: String, annotations: List<String> = listOf())
+    fun symbol(field: SymbolToken, value: String, annotations: List<String> = listOf())
 }

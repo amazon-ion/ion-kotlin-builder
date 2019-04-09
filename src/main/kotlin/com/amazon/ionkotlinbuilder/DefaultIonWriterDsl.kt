@@ -7,7 +7,7 @@ import java.math.BigInteger
 class DefaultIonWriterDsl(override val writer: IonWriter) : IonWriterDsl,
     IonStructWriterDsl {
 
-    override fun writeStruct(annotations: List<String>, dslFunction: IonStructWriterDsl.() -> Unit) {
+    override fun struct(annotations: List<String>, dslFunction: IonStructWriterDsl.() -> Unit) {
         writeWithAnnotations(annotations) {
             writer.stepIn(IonType.STRUCT)
             this.dslFunction()
@@ -15,27 +15,27 @@ class DefaultIonWriterDsl(override val writer: IonWriter) : IonWriterDsl,
         }
     }
 
-    override fun writeList(annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
+    override fun list(annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
         writeSequence(IonType.LIST, annotations, dslFunction)
     }
 
-    override fun writeSexp(annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
+    override fun sexp(annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
         writeSequence(IonType.SEXP, annotations, dslFunction)
     }
 
-    override fun writeValue(value: IonValue) {
+    override fun value(value: IonValue) {
         value.writeTo(writer)
     }
 
-    override fun writeValue(reader: IonReader) {
+    override fun value(reader: IonReader) {
         writer.writeValue(reader)
     }
 
-    override fun writeValues(reader: IonReader) {
+    override fun values(reader: IonReader) {
         writer.writeValues(reader)
     }
 
-    override fun writeNull(type: IonType?, annotations: List<String>) {
+    override fun nullValue(type: IonType?, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             if (type == null) {
                 writer.writeNull()
@@ -45,79 +45,79 @@ class DefaultIonWriterDsl(override val writer: IonWriter) : IonWriterDsl,
         }
     }
 
-    override fun writeBool(value: Boolean, annotations: List<String>) {
+    override fun bool(value: Boolean, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeBool(value)
         }
     }
 
-    override fun writeInt(value: Long, annotations: List<String>) {
+    override fun int(value: Long, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeInt(value)
         }
     }
 
-    override fun writeInt(value: BigInteger, annotations: List<String>) {
+    override fun int(value: BigInteger, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeInt(value)
         }
     }
 
-    override fun writeFloat(value: Double, annotations: List<String>) {
+    override fun float(value: Double, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeFloat(value)
         }
     }
 
-    override fun writeDecimal(value: BigDecimal, annotations: List<String>) {
+    override fun decimal(value: BigDecimal, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeDecimal(value)
         }
     }
 
-    override fun writeString(value: String, annotations: List<String>) {
+    override fun string(value: String, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeString(value)
         }
     }
 
-    override fun writeTimestamp(value: Timestamp, annotations: List<String>) {
+    override fun timestamp(value: Timestamp, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeTimestamp(value)
         }
     }
 
-    override fun writeBlob(value: ByteArray, annotations: List<String>) {
+    override fun blob(value: ByteArray, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeBlob(value)
         }
     }
 
-    override fun writeBlob(value: ByteArray, start: Int, len: Int, annotations: List<String>) {
+    override fun blob(value: ByteArray, start: Int, len: Int, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeBlob(value, start, len)
         }
     }
 
-    override fun writeClob(value: ByteArray, annotations: List<String>) {
+    override fun clob(value: ByteArray, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeClob(value)
         }
     }
 
-    override fun writeClob(value: ByteArray, start: Int, len: Int, annotations: List<String>) {
+    override fun clob(value: ByteArray, start: Int, len: Int, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeClob(value, start, len)
         }
     }
 
-    override fun writeSymbolToken(value: SymbolToken, annotations: List<String>) {
+    override fun symbolToken(value: SymbolToken, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeSymbolToken(value)
         }
     }
 
-    override fun writeSymbol(value: String, annotations: List<String>) {
+    override fun symbol(value: String, annotations: List<String>) {
         writeWithAnnotations(annotations) {
             writer.writeSymbol(value)
         }
@@ -125,198 +125,198 @@ class DefaultIonWriterDsl(override val writer: IonWriter) : IonWriterDsl,
 
     // Struct Context
 
-    override fun writeStruct(field: String, annotations: List<String>, dslFunction: IonStructWriterDsl.() -> Unit) {
+    override fun struct(field: String, annotations: List<String>, dslFunction: IonStructWriterDsl.() -> Unit) {
         writer.setFieldName(field)
-        writeStruct(annotations, dslFunction)
+        struct(annotations, dslFunction)
     }
 
-    override fun writeStruct(
+    override fun struct(
         field: SymbolToken,
         annotations: List<String>,
         dslFunction: IonStructWriterDsl.() -> Unit
     ) {
         writer.setFieldNameSymbol(field)
-        writeStruct(annotations, dslFunction)
+        struct(annotations, dslFunction)
     }
 
-    override fun writeList(field: String, annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
+    override fun list(field: String, annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
         writer.setFieldName(field)
-        writeList(annotations, dslFunction)
+        list(annotations, dslFunction)
     }
 
-    override fun writeList(field: SymbolToken, annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
+    override fun list(field: SymbolToken, annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
         writer.setFieldNameSymbol(field)
-        writeList(annotations, dslFunction)
+        list(annotations, dslFunction)
     }
 
-    override fun writeSexp(field: String, annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
+    override fun sexp(field: String, annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
         writer.setFieldName(field)
-        writeSexp(annotations, dslFunction)
+        sexp(annotations, dslFunction)
     }
 
-    override fun writeSexp(field: SymbolToken, annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
+    override fun sexp(field: SymbolToken, annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) {
         writer.setFieldNameSymbol(field)
-        writeSexp(annotations, dslFunction)
+        sexp(annotations, dslFunction)
     }
 
-    override fun writeValue(field: String, value: IonValue) {
+    override fun value(field: String, value: IonValue) {
         writer.setFieldName(field)
-        writeValue(value)
+        value(value)
     }
 
-    override fun writeValue(field: SymbolToken, value: IonValue) {
+    override fun value(field: SymbolToken, value: IonValue) {
         writer.setFieldNameSymbol(field)
-        writeValue(value)
+        value(value)
     }
 
-    override fun writeValue(field: String, reader: IonReader) {
+    override fun value(field: String, reader: IonReader) {
         writer.setFieldName(field)
-        writeValue(reader)
+        value(reader)
     }
 
-    override fun writeValue(field: SymbolToken, reader: IonReader) {
+    override fun value(field: SymbolToken, reader: IonReader) {
         writer.setFieldNameSymbol(field)
-        writeValue(reader)
+        value(reader)
     }
 
-    override fun writeNull(field: String, type: IonType?, annotations: List<String>) {
+    override fun nullValue(field: String, type: IonType?, annotations: List<String>) {
         writer.setFieldName(field)
-        writeNull(type, annotations)
+        nullValue(type, annotations)
     }
 
-    override fun writeNull(field: SymbolToken, type: IonType?, annotations: List<String>) {
+    override fun nullValue(field: SymbolToken, type: IonType?, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeNull(type, annotations)
+        nullValue(type, annotations)
     }
 
-    override fun writeBool(field: String, value: Boolean, annotations: List<String>) {
+    override fun bool(field: String, value: Boolean, annotations: List<String>) {
         writer.setFieldName(field)
-        writeBool(value, annotations)
+        bool(value, annotations)
     }
 
-    override fun writeBool(field: SymbolToken, value: Boolean, annotations: List<String>) {
+    override fun bool(field: SymbolToken, value: Boolean, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeBool(value, annotations)
+        bool(value, annotations)
     }
 
-    override fun writeInt(field: String, value: Long, annotations: List<String>) {
+    override fun int(field: String, value: Long, annotations: List<String>) {
         writer.setFieldName(field)
-        writeInt(value, annotations)
+        int(value, annotations)
     }
 
-    override fun writeInt(field: SymbolToken, value: Long, annotations: List<String>) {
+    override fun int(field: SymbolToken, value: Long, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeInt(value, annotations)
+        int(value, annotations)
     }
 
-    override fun writeInt(field: String, value: BigInteger, annotations: List<String>) {
+    override fun int(field: String, value: BigInteger, annotations: List<String>) {
         writer.setFieldName(field)
-        writeInt(value, annotations)
+        int(value, annotations)
     }
 
-    override fun writeInt(field: SymbolToken, value: BigInteger, annotations: List<String>) {
+    override fun int(field: SymbolToken, value: BigInteger, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeInt(value, annotations)
+        int(value, annotations)
     }
 
-    override fun writeFloat(field: String, value: Double, annotations: List<String>) {
+    override fun float(field: String, value: Double, annotations: List<String>) {
         writer.setFieldName(field)
-        writeFloat(value, annotations)
+        float(value, annotations)
     }
 
-    override fun writeFloat(field: SymbolToken, value: Double, annotations: List<String>) {
+    override fun float(field: SymbolToken, value: Double, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeFloat(value, annotations)
+        float(value, annotations)
     }
 
-    override fun writeDecimal(field: String, value: BigDecimal, annotations: List<String>) {
+    override fun decimal(field: String, value: BigDecimal, annotations: List<String>) {
         writer.setFieldName(field)
-        writeDecimal(value, annotations)
+        decimal(value, annotations)
     }
 
-    override fun writeDecimal(field: SymbolToken, value: BigDecimal, annotations: List<String>) {
+    override fun decimal(field: SymbolToken, value: BigDecimal, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeDecimal(value, annotations)
+        decimal(value, annotations)
     }
 
-    override fun writeString(field: String, value: String, annotations: List<String>) {
+    override fun string(field: String, value: String, annotations: List<String>) {
         writer.setFieldName(field)
-        writeString(value, annotations)
+        string(value, annotations)
     }
 
-    override fun writeString(field: SymbolToken, value: String, annotations: List<String>) {
+    override fun string(field: SymbolToken, value: String, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeString(value, annotations)
+        string(value, annotations)
     }
 
-    override fun writeTimestamp(field: String, value: Timestamp, annotations: List<String>) {
+    override fun timestamp(field: String, value: Timestamp, annotations: List<String>) {
         writer.setFieldName(field)
-        writeTimestamp(value, annotations)
+        timestamp(value, annotations)
     }
 
-    override fun writeTimestamp(field: SymbolToken, value: Timestamp, annotations: List<String>) {
+    override fun timestamp(field: SymbolToken, value: Timestamp, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeTimestamp(value, annotations)
+        timestamp(value, annotations)
     }
 
-    override fun writeBlob(field: String, value: ByteArray, annotations: List<String>) {
+    override fun blob(field: String, value: ByteArray, annotations: List<String>) {
         writer.setFieldName(field)
-        writeBlob(value, annotations)
+        blob(value, annotations)
     }
 
-    override fun writeBlob(field: SymbolToken, value: ByteArray, annotations: List<String>) {
+    override fun blob(field: SymbolToken, value: ByteArray, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeBlob(value, annotations)
+        blob(value, annotations)
     }
 
-    override fun writeBlob(field: String, value: ByteArray, start: Int, len: Int, annotations: List<String>) {
+    override fun blob(field: String, value: ByteArray, start: Int, len: Int, annotations: List<String>) {
         writer.setFieldName(field)
-        writeBlob(value, start, len, annotations)
+        blob(value, start, len, annotations)
     }
 
-    override fun writeBlob(field: SymbolToken, value: ByteArray, start: Int, len: Int, annotations: List<String>) {
+    override fun blob(field: SymbolToken, value: ByteArray, start: Int, len: Int, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeBlob(value, start, len, annotations)
+        blob(value, start, len, annotations)
     }
 
-    override fun writeClob(field: String, value: ByteArray, annotations: List<String>) {
+    override fun clob(field: String, value: ByteArray, annotations: List<String>) {
         writer.setFieldName(field)
-        writeClob(value, annotations)
+        clob(value, annotations)
     }
 
-    override fun writeClob(field: SymbolToken, value: ByteArray, annotations: List<String>) {
+    override fun clob(field: SymbolToken, value: ByteArray, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeClob(value, annotations)
+        clob(value, annotations)
     }
 
-    override fun writeSymbolToken(field: String, value: SymbolToken, annotations: List<String>) {
+    override fun symbolToken(field: String, value: SymbolToken, annotations: List<String>) {
         writer.setFieldName(field)
-        writeSymbolToken(value, annotations)
+        symbolToken(value, annotations)
     }
 
-    override fun writeSymbolToken(field: SymbolToken, value: SymbolToken, annotations: List<String>) {
+    override fun symbolToken(field: SymbolToken, value: SymbolToken, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeSymbolToken(value, annotations)
+        symbolToken(value, annotations)
     }
 
-    override fun writeClob(field: String, value: ByteArray, start: Int, len: Int, annotations: List<String>) {
+    override fun clob(field: String, value: ByteArray, start: Int, len: Int, annotations: List<String>) {
         writer.setFieldName(field)
-        writeClob(value, start, len, annotations)
+        clob(value, start, len, annotations)
     }
 
-    override fun writeClob(field: SymbolToken, value: ByteArray, start: Int, len: Int, annotations: List<String>) {
+    override fun clob(field: SymbolToken, value: ByteArray, start: Int, len: Int, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeClob(value, start, len, annotations)
+        clob(value, start, len, annotations)
     }
 
-    override fun writeSymbol(field: String, value: String, annotations: List<String>) {
+    override fun symbol(field: String, value: String, annotations: List<String>) {
         writer.setFieldName(field)
-        writeSymbol(value, annotations)
+        symbol(value, annotations)
     }
 
-    override fun writeSymbol(field: SymbolToken, value: String, annotations: List<String>) {
+    override fun symbol(field: SymbolToken, value: String, annotations: List<String>) {
         writer.setFieldNameSymbol(field)
-        writeSymbol(value, annotations)
+        symbol(value, annotations)
     }
 
     private inline fun writeSequence(type: IonType, annotations: List<String>, dslFunction: IonWriterDsl.() -> Unit) =
