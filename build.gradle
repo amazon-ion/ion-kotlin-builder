@@ -44,3 +44,6 @@ jmh {
     iterations = 10
     timeOnIteration = '5s'
 }
+
+// builds the JMH code as part of the regular build to avoid to make sure it doesn't fall behind
+build.finalizedBy(jmhClasses)

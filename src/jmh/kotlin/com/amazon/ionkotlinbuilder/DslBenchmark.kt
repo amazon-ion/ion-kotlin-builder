@@ -6,12 +6,11 @@ import software.amazon.ion.IonWriter
 import software.amazon.ion.Timestamp
 import java.math.BigDecimal
 
-
 open class DslBenchmark {
 
     @Benchmark
     fun singleScalarTextDsl(state: DslBenchmarkState): Any {
-        state.textWriter.use { w -> w.dsl { writeInt(1) } }
+        state.textWriter.use { w -> w.dsl { int(1) } }
 
         return state
     }
@@ -25,7 +24,7 @@ open class DslBenchmark {
 
     @Benchmark
     fun singleScalarBinaryDsl(state: DslBenchmarkState): Any {
-        state.binaryWriter.use { w -> w.dsl { writeInt(1) } }
+        state.binaryWriter.use { w -> w.dsl { int(1) } }
 
         return state
     }
@@ -68,14 +67,14 @@ open class DslBenchmark {
 
     private fun writeMultipleValuesDsl(w: IonWriter) {
         w.dsl {
-            writeInt(1)
-            writeString("text")
-            writeSymbol("a_symbol")
-            writeList {
-                writeDecimal(BigDecimal.ONE)
-                writeStruct {
-                    writeString(field = "foo", value = "bar")
-                    writeTimestamp(
+            int(1)
+            string("text")
+            symbol("a_symbol")
+            list {
+                decimal(BigDecimal.ONE)
+                struct {
+                    string(field = "foo", value = "bar")
+                    timestamp(
                         field = "t",
                         value = Timestamp.valueOf("2019T"),
                         annotations = listOf("a", "b")
