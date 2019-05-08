@@ -3,9 +3,14 @@ plugins {
 
     // benchmark
     id "me.champeau.gradle.jmh" version "0.4.8"
+
+    // Publishing
+    id "maven-publish"
+    id "signing"
 }
 
-version "1.0-SNAPSHOT"
+group = "com.amazon.ion"
+version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -31,6 +36,8 @@ test {
     useJUnitPlatform()
 }
 
+// Benchmark
+
 jmh {
     fork = 1
     benchmarkMode = ["thrpt"]
@@ -47,3 +54,63 @@ jmh {
 
 // builds the JMH code as part of the regular build to avoid to make sure it doesn't fall behind
 build.finalizedBy(jmhClasses)
+
+// Publishing
+task sourcesJar(type: Jar) {
+    from "src"
+    classifier = "sources"
+}
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = "javadoc"
+}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = "ion-kotlin-builder"
+
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+
+            pom {
+                name = "Ion Kotlin Builder"
+                packaging = "jar"
+                url = "https://github.com/amzn/ion-kotlin-builder"
+                description = "Kotlin Type-Safe Builders for writing Ion documents"
+                scm {
+                    connection = "scm:git@github.com:amzn/ion-kotlin-builder.git"
+                    developerConnection = "scm:git@github.com:amzn/ion-kotlin-builder.git"
+                    url = "git@github.com:amzn/ion-kotlin-builder.git"
+                }
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        name = "Amazon Ion Team"
+                        email = "ion-team@amazon.com"
+                        organization = "Amazon"
+                        organizationUrl = "https://github.com/amzn"
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            credentials {
+                username ossrhUsername
+                password ossrhPassword
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.maven
+}
