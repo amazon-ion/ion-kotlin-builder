@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/amzn/ion-kotlin-builder.svg)](https://travis-ci.org/amzn/ion-kotlin-builder)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.amazon.ion/ion-kotlin-builder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.amazon.ion/ion-kotlin-builder)
+[![Javadoc](https://javadoc-badge.appspot.com/com.amazon.ion/ion-kotlin-builder.svg?label=javadoc)](http://www.javadoc.io/doc/com.amazon.ion/ion-kotlin-builder)
+
 ## Ion Kotlin builder
 
 This library provides Kotlin Type-Safe Builders for manually writing
