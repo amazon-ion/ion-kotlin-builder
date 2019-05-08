@@ -1,11 +1,11 @@
 package com.amazon.ionkotlinbuilder
 
 import org.junit.jupiter.api.Assertions.assertEquals
-import software.amazon.ion.IonSymbol
-import software.amazon.ion.IonValue
-import software.amazon.ion.system.IonReaderBuilder
-import software.amazon.ion.system.IonSystemBuilder
-import software.amazon.ion.system.IonTextWriterBuilder
+import com.amazon.ion.IonSymbol
+import com.amazon.ion.IonValue
+import com.amazon.ion.system.IonReaderBuilder
+import com.amazon.ion.system.IonSystemBuilder
+import com.amazon.ion.system.IonTextWriterBuilder
 import java.io.ByteArrayOutputStream
 
 

@@ -2,8 +2,8 @@ package com.amazon.ionkotlinbuilder
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import software.amazon.ion.IonType
-import software.amazon.ion.Timestamp
+import com.amazon.ion.IonType
+import com.amazon.ion.Timestamp
 import java.io.ByteArrayOutputStream
 import java.math.BigDecimal
 import java.math.BigInteger

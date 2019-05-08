@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation "software.amazon.ion:ion-java:[1.3.1,)" // always want to use the latest ion-java
+    implementation "com.amazon.ion:ion-java:[1.3.1,)" // always want to use the latest ion-java
     implementation "org.jetbrains.kotlin:kotlin-stdlib" // version from plugin
 
     // test dependencies

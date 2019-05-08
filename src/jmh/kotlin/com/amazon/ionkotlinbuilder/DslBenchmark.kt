@@ -1,9 +1,9 @@
 package com.amazon.ionkotlinbuilder
 
 import org.openjdk.jmh.annotations.Benchmark
-import software.amazon.ion.IonType
-import software.amazon.ion.IonWriter
-import software.amazon.ion.Timestamp
+import com.amazon.ion.IonType
+import com.amazon.ion.IonWriter
+import com.amazon.ion.Timestamp
 import java.math.BigDecimal
 
 open class DslBenchmark {

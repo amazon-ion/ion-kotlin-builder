@@ -2,7 +2,7 @@ package com.amazon.ionkotlinbuilder
 
 import org.openjdk.jmh.annotations.Scope
 import org.openjdk.jmh.annotations.State
-import software.amazon.ion.system.IonTextWriterBuilder
+import com.amazon.ion.system.IonTextWriterBuilder
 import java.io.OutputStream
 
 @State(Scope.Thread)

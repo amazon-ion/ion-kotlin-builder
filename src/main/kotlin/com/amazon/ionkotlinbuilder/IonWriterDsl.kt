@@ -1,6 +1,6 @@
 package com.amazon.ionkotlinbuilder
 
-import software.amazon.ion.*
+import com.amazon.ion.*
 import java.math.BigDecimal
 import java.math.BigInteger
 

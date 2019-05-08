@@ -1,6 +1,6 @@
 package com.amazon.ionkotlinbuilder
 
-import software.amazon.ion.IonWriter
+import com.amazon.ion.IonWriter
 
 /**
  * Writes Ion using the a type safe dslFunction with the given writer
