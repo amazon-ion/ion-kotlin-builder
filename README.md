@@ -1,6 +1,6 @@
 ## Ion Kotlin builder
 
-This library provides Kotlin TYpe-Safe Builders for manually writing
+This library provides Kotlin Type-Safe Builders for manually writing
 Ion documents. It helps avoiding common ion-java streaming api runtime
 errors such as forgetting to step out of a container or not setting
 a filed name for a struct element.
